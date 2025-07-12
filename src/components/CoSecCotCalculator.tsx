@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calculator, RotateCcw, ArrowRight } from 'lucide-react';
+import { Calculator, RotateCcw, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,19 +8,19 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 
-interface TrigResults {
-  sin: number;
+interface CoSecCotResults {
   cos: number;
-  tan: number;
+  sec: number;
+  cot: number;
 }
 
-const TrigCalculator = () => {
+const CoSecCotCalculator = () => {
   const [theta, setTheta] = useState<string>('');
   const [angleMode, setAngleMode] = useState<'degrees' | 'radians'>('degrees');
-  const [results, setResults] = useState<TrigResults | null>(null);
+  const [results, setResults] = useState<CoSecCotResults | null>(null);
   const { toast } = useToast();
 
-  const calculateTrig = () => {
+  const calculateCoSecCot = () => {
     const numericTheta = parseFloat(theta);
     
     if (isNaN(numericTheta)) {
@@ -35,15 +35,15 @@ const TrigCalculator = () => {
     // Convert to radians if input is in degrees
     const thetaInRadians = angleMode === 'degrees' ? (numericTheta * Math.PI) / 180 : numericTheta;
     
-    const sin = Math.sin(thetaInRadians);
     const cos = Math.cos(thetaInRadians);
-    const tan = Math.tan(thetaInRadians);
+    const sec = 1 / Math.cos(thetaInRadians); // secant = 1/cos
+    const cot = 1 / Math.tan(thetaInRadians); // cotangent = 1/tan
 
-    setResults({ sin, cos, tan });
+    setResults({ cos, sec, cot });
     
     toast({
       title: "Calculation Complete",
-      description: `Trigonometric values calculated for θ = ${numericTheta}${angleMode === 'degrees' ? '°' : ' rad'}`,
+      description: `Co-functions calculated for θ = ${numericTheta}${angleMode === 'degrees' ? '°' : ' rad'}`,
     });
   };
 
@@ -64,11 +64,11 @@ const TrigCalculator = () => {
 
   return (
     <div className="w-full max-w-md mx-auto space-y-6">
-      <Card className="shadow-[var(--shadow-calculator)] border-primary/20">
-        <CardHeader className="text-center bg-gradient-to-r from-primary to-primary-glow text-primary-foreground rounded-t-lg">
+      <Card className="shadow-[var(--shadow-calculator)] border-accent/20">
+        <CardHeader className="text-center bg-gradient-to-r from-accent to-result text-accent-foreground rounded-t-lg">
           <CardTitle className="flex items-center justify-center gap-2 text-xl">
             <Calculator className="h-6 w-6" />
-            Trigonometric Calculator
+            Co-Functions Calculator
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6 space-y-6">
@@ -96,8 +96,8 @@ const TrigCalculator = () => {
                 step="any"
               />
               <Button 
-                onClick={calculateTrig}
-                className="bg-calculator text-calculator-foreground hover:bg-calculator/90"
+                onClick={calculateCoSecCot}
+                className="bg-accent text-accent-foreground hover:bg-accent/90"
               >
                 Calculate
               </Button>
@@ -124,16 +124,10 @@ const TrigCalculator = () => {
 
           {/* Results */}
           {results && (
-            <Card className="bg-gradient-to-br from-result to-accent text-result-foreground shadow-[var(--shadow-result)]">
+            <Card className="bg-gradient-to-br from-accent to-primary text-accent-foreground shadow-[var(--shadow-result)]">
               <CardContent className="p-4 space-y-3">
                 <h3 className="font-semibold text-center">Results</h3>
                 <div className="grid grid-cols-3 gap-4 text-center">
-                  <div>
-                    <Label className="text-xs opacity-90">sin θ</Label>
-                    <div className="font-mono text-lg font-bold">
-                      {formatResult(results.sin)}
-                    </div>
-                  </div>
                   <div>
                     <Label className="text-xs opacity-90">cos θ</Label>
                     <div className="font-mono text-lg font-bold">
@@ -141,9 +135,15 @@ const TrigCalculator = () => {
                     </div>
                   </div>
                   <div>
-                    <Label className="text-xs opacity-90">tan θ</Label>
+                    <Label className="text-xs opacity-90">sec θ</Label>
                     <div className="font-mono text-lg font-bold">
-                      {formatResult(results.tan)}
+                      {formatResult(results.sec)}
+                    </div>
+                  </div>
+                  <div>
+                    <Label className="text-xs opacity-90">cot θ</Label>
+                    <div className="font-mono text-lg font-bold">
+                      {formatResult(results.cot)}
                     </div>
                   </div>
                 </div>
@@ -165,16 +165,16 @@ const TrigCalculator = () => {
 
           {/* Navigation Slide Button */}
           <Link 
-            to="/co-functions"
-            className="block w-full group relative overflow-hidden rounded-lg bg-gradient-to-r from-accent to-result p-0.5 transition-all duration-300 hover:scale-105 animate-fade-in"
+            to="/"
+            className="block w-full group relative overflow-hidden rounded-lg bg-gradient-to-r from-primary to-primary-glow p-0.5 transition-all duration-300 hover:scale-105 animate-fade-in"
           >
             <div className="bg-card rounded-lg p-4 text-center transition-all duration-300 group-hover:bg-transparent">
-              <div className="flex items-center justify-center gap-2 text-accent group-hover:text-accent-foreground transition-colors">
-                <span className="font-medium">Switch to Co-Functions</span>
-                <ArrowRight className="h-4 w-4 transform transition-transform group-hover:translate-x-1" />
+              <div className="flex items-center justify-center gap-2 text-primary group-hover:text-primary-foreground transition-colors">
+                <ArrowLeft className="h-4 w-4 transform transition-transform group-hover:-translate-x-1" />
+                <span className="font-medium">Switch to Basic Functions</span>
               </div>
-              <p className="text-xs text-muted-foreground group-hover:text-accent-foreground/80 mt-1">
-                Calculate cos, sec, cot
+              <p className="text-xs text-muted-foreground group-hover:text-primary-foreground/80 mt-1">
+                Calculate sin, cos, tan
               </p>
             </div>
           </Link>
@@ -184,4 +184,4 @@ const TrigCalculator = () => {
   );
 };
 
-export default TrigCalculator;
+export default CoSecCotCalculator;
