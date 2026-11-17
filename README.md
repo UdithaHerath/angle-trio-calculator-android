@@ -1,73 +1,43 @@
-# Welcome to your Lovable project
+# Angle Trio Calculator
 
-## Project info
+A trigonometry calculator web app that can also be built as an Android app
+using Capacitor.
 
-**URL**: https://lovable.dev/projects/c3dad1e0-be80-40d2-9c50-542a8125a567
+## Features
 
-## How can I edit this code?
+- Calculate **sine, cosine, and tangent** values for any angle
+- Co-functions page: calculate **cos, sec, and cot** values
+- Slide button for quick cosine calculations
+- Responsive design with a dark theme
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- React + TypeScript
+- Vite
+- Tailwind CSS
+- shadcn/ui components
+- Capacitor (Android packaging)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/c3dad1e0-be80-40d2-9c50-542a8125a567) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+```bash
+# 1. Clone the repository
+git clone https://github.com/UdithaHerath/angle-trio-calculator-android.git
+cd angle-trio-calculator-android
 
-**Use your preferred IDE**
+# 2. Install dependencies
+npm install
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 3. Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Building the Android App
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+The project includes a Capacitor config (`capacitor.config.ts`) for wrapping
+the web app as an Android application.
 
-**Use GitHub Codespaces**
+## Note
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/c3dad1e0-be80-40d2-9c50-542a8125a567) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+The initial version of this app was generated with [Lovable](https://lovable.dev)
+(an AI app builder), then customized manually.
